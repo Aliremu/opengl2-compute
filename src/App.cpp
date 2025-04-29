@@ -26,7 +26,12 @@ bool App::init() {
 bool App::createWindow() {
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+
+#if defined(_WIN32)
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+#elif defined(__APPLE__)
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
+#endif
 
     auto window = SDL_CreateWindow("opengl2-compute example", 640, 480, SDL_WINDOW_OPENGL);
     if (!window) {
